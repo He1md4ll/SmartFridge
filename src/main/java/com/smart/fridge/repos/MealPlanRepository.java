@@ -1,7 +1,7 @@
 package com.smart.fridge.repos;
 
-import com.smart.fridge.domain.Day;
 import com.smart.fridge.domain.MealPlan;
+import com.smart.fridge.domain.enums.Day;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

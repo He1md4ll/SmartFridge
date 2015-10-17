@@ -45,7 +45,7 @@ public class MealService {
 
     @Transactional
     public Meal getMealByName(String mealName) {
-        return mealRepository.findMealByName(mealName);
+        return mealRepository.findByName(mealName);
     }
 
     /**

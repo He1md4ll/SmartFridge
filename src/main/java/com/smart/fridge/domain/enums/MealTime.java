@@ -1,4 +1,4 @@
-package com.smart.fridge.domain;
+package com.smart.fridge.domain.enums;
 
 public enum MealTime {
     BREAKFAST(),

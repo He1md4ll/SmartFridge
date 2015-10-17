@@ -6,5 +6,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface IngredientRepository extends CrudRepository<Ingredient, Long> {
-    public Ingredient findByName(String name);
 }

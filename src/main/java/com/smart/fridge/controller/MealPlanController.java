@@ -1,8 +1,8 @@
 package com.smart.fridge.controller;
 
-import com.smart.fridge.domain.Day;
 import com.smart.fridge.domain.MealPlan;
-import com.smart.fridge.domain.MealTime;
+import com.smart.fridge.domain.enums.Day;
+import com.smart.fridge.domain.enums.MealTime;
 import com.smart.fridge.services.MealPlanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

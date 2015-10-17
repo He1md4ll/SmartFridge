@@ -1,5 +1,8 @@
 package com.smart.fridge.domain;
 
+import com.smart.fridge.domain.enums.Day;
+import com.smart.fridge.domain.enums.MealTime;
+
 import javax.persistence.*;
 
 @Entity
@@ -10,13 +13,15 @@ public class MealPlan {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Meal meal;
 
     @Enumerated(EnumType.ORDINAL)
+    @Column(name = "mealTime", nullable = false)
     private MealTime mealTime;
 
     @Enumerated(EnumType.ORDINAL)
+    @Column(name = "day", nullable = false)
     private Day day;
 
     public MealPlan() {

@@ -1,9 +1,9 @@
 package com.smart.fridge.services;
 
-import com.smart.fridge.domain.Day;
 import com.smart.fridge.domain.Meal;
 import com.smart.fridge.domain.MealPlan;
-import com.smart.fridge.domain.MealTime;
+import com.smart.fridge.domain.enums.Day;
+import com.smart.fridge.domain.enums.MealTime;
 import com.smart.fridge.repos.MealPlanRepository;
 import com.smart.fridge.repos.MealRepository;
 import org.springframework.beans.factory.annotation.Autowired;
