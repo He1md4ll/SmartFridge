@@ -2,6 +2,8 @@ package com.smart.fridge.controller;
 
 
 import com.smart.fridge.domain.Meal;
+import com.smart.fridge.domain.MealAddition;
+import com.smart.fridge.domain.MealPerformance;
 import com.smart.fridge.services.MealService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -28,22 +30,43 @@ public class MealController {
     }
 
     @GET
-    @Path("/findMeal")
+    @Path("/getMealByName")
     @Produces("application/json")
-    public Meal findMealByName(@QueryParam(value = "mealName") String mealName) {
-        return mealService.findMealByName("TestMeal");
+    public Response getMealByName(@QueryParam(value = "mealName") String mealName) {
+        Response response;
+        Meal meal = mealService.getMealByName(mealName);
+        if (meal == null) {
+            response = Response.noContent().build();
+        } else {
+            response = Response.ok(meal).build();
+        }
+        return response;
     }
 
     @GET
     @Path("/getMeals")
     @Produces("application/json")
-    public Response findAllMeals() {
+    public Response getMeals() {
         Response response;
-        List<Meal> mealList = mealService.findAllMeals();
+        List<MealPerformance> mealList = mealService.getMeals();
         if (mealList.isEmpty()) {
             response = Response.noContent().build();
         } else {
             response = Response.ok(mealList).build();
+        }
+        return response;
+    }
+
+    @GET
+    @Produces("application/json")
+    @Path("/getMealAdditionOfMeal")
+    public Response getMealAdditionOfMeal(@QueryParam(value = "mealID") int mealID) {
+        List<MealAddition> mealAdditionList = mealService.getMealAdditionsOfMeal(mealID);
+        Response response;
+        if (mealAdditionList.isEmpty()) {
+            response = Response.noContent().build();
+        } else {
+            response = Response.ok(mealAdditionList).build();
         }
         return response;
     }

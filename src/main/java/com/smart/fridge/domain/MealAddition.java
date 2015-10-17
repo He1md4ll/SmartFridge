@@ -13,7 +13,7 @@ public class MealAddition {
     @Column(name = "amount")
     private int amount;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Ingredient ingredient;
 
     public MealAddition() {

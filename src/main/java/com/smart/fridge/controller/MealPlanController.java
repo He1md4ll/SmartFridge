@@ -25,8 +25,8 @@ public class MealPlanController {
     @Produces("application/json")
     @Path("/getMealsOfDay")
     public Response getMealsOfDay(@QueryParam(value = "day") Day day) {
-        List<MealPlan> mealPlanList = mealPlanService.getMealsOfDay(day);
         Response response;
+        List<MealPlan> mealPlanList = mealPlanService.getMealsOfDay(day);
         if (mealPlanList.isEmpty()) {
             response = Response.noContent().build();
         } else {
@@ -39,8 +39,14 @@ public class MealPlanController {
     @Produces("application/json")
     @Path("/addMealToMealPlan")
     public Response createMealPlan(@QueryParam("mealID") long mealID, @QueryParam("mealTime") MealTime mealTime, @QueryParam("day") Day day) {
-        mealPlanService.createMealPlan(mealID, mealTime, day);
-        return Response.ok().build();
+        Response response;
+        MealPlan mealPlan = mealPlanService.createMealPlan(mealID, mealTime, day);
+        if (mealPlan == null) {
+            response = Response.status(Response.Status.PRECONDITION_FAILED).build();
+        } else {
+            response = Response.ok().build();
+        }
+        return response;
     }
 
     @GET
@@ -49,10 +55,10 @@ public class MealPlanController {
     public Response removeMealPlan(@QueryParam("mealPlanID") long mealPlanID) {
         Response response;
         boolean success = mealPlanService.removeMealPlan(mealPlanID);
-        if (success) {
-            response = Response.ok().build();
+        if (!success) {
+            response = Response.status(Response.Status.PRECONDITION_FAILED).build();
         } else {
-            response = Response.noContent().build();
+            response = Response.ok().build();
         }
         return response;
     }

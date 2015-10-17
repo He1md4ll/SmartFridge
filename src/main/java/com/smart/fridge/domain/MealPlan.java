@@ -10,7 +10,7 @@ public class MealPlan {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Meal meal;
 
     @Enumerated(EnumType.ORDINAL)
