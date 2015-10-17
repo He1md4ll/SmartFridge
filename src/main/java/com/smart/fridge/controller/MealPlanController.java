@@ -1,5 +1,7 @@
 package com.smart.fridge.controller;
 
+import com.smart.fridge.domain.Meal;
+import com.smart.fridge.domain.MealAddition;
 import com.smart.fridge.domain.MealPlan;
 import com.smart.fridge.domain.enums.Day;
 import com.smart.fridge.domain.enums.MealTime;
@@ -12,7 +14,10 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Path("/rest")
 @Component
@@ -61,5 +66,50 @@ public class MealPlanController {
             response = Response.ok().build();
         }
         return response;
+    }
+
+    @GET
+    @Produces("application/json")
+    @Path("/getGroceries")
+    public Response getGroceries(){
+        Response response;
+        Map<String, MealAddition> groceries = _generateGroceries();
+
+        if (groceries.isEmpty()) {
+            response = Response.noContent().build();
+        } else {
+            response = Response.ok().entity(groceries).build();
+        }
+
+        return response;
+    }
+
+    private Map<String, MealAddition> _generateGroceries(){
+        Map<String, MealAddition> groceries = new HashMap<>();
+
+        List<MealPlan> mealPlansOfWeak = new ArrayList<>();
+        for (Day day : Day.values()){
+            mealPlansOfWeak.addAll(mealPlanService.getMealsOfDay(day));
+        }
+
+        List<MealAddition> mealAdditions = new ArrayList<>();
+        for (MealPlan mealPlan : mealPlansOfWeak){
+            mealAdditions.addAll(mealPlan.getMeal().getMealAdditions());
+        }
+
+        for (MealAddition mealAddition : mealAdditions){
+            String ingredientName = mealAddition.getIngredient().getName();
+
+            if (groceries.containsKey(ingredientName)){
+                MealAddition existingAddition = groceries.get(ingredientName);
+                int newValue = existingAddition.getAmount() + mealAddition.getAmount();
+                existingAddition.setAmount(newValue);
+            }
+            else {
+                groceries.put(ingredientName, mealAddition);
+            }
+        }
+
+        return groceries;
     }
 }
