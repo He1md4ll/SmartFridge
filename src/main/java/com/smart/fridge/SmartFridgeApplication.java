@@ -8,10 +8,10 @@ import org.springframework.context.annotation.Bean;
 
 
 @SpringBootApplication
-public class KitchenTrackerApplication {
+public class SmartFridgeApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(KitchenTrackerApplication.class, args);
+        SpringApplication.run(SmartFridgeApplication.class, args);
     }
 
     @Bean
