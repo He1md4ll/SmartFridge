@@ -47,6 +47,22 @@ public class MealController {
     }
 
     @GET
+    @Path("/getMealByNameLike")
+    @Produces("application/json")
+    public Response getMealByNameLikeName(@QueryParam(value = "mealName") String mealName) {
+        Preconditions.checkNotNull(mealName, "MealName can not be null!");
+
+        Response response;
+        List<Meal> mealList = mealService.getMealByNameLike(mealName);
+        if (mealList.isEmpty()) {
+            response = Response.noContent().build();
+        } else {
+            response = Response.ok(mealList).build();
+        }
+        return response;
+    }
+
+    @GET
     @Path("/getMeals")
     @Produces("application/json")
     public Response getMeals() {

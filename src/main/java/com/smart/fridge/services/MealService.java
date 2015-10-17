@@ -48,6 +48,11 @@ public class MealService {
         return mealRepository.findByName(mealName);
     }
 
+    @Transactional
+    public List<Meal> getMealByNameLike(String mealName) {
+        return mealRepository.findByNameContaining(mealName);
+    }
+
     /**
      * Finds all meals in database
      *
