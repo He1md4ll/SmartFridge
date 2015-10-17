@@ -48,6 +48,12 @@ public class MealService {
 
     @Transactional
     public List<Meal> findAllMeals() {
-        return Lists.newArrayList(mealRepository.findAll());
+        List<Meal> mealList = Lists.newArrayList(mealRepository.findAll());
+        return mealList;
+    }
+
+    public List<MealAddition> getMealAdditionsOfMeal(long mealID) {
+        Meal meal = mealRepository.findOne(mealID);
+        return meal.getMealAdditions();
     }
 }
