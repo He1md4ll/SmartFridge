@@ -1,6 +1,5 @@
 package com.smart.fridge.controller;
 
-import com.smart.fridge.domain.Meal;
 import com.smart.fridge.domain.MealAddition;
 import com.smart.fridge.domain.MealPlan;
 import com.smart.fridge.domain.enums.Day;
@@ -54,6 +53,11 @@ public class MealPlanController {
         return response;
     }
 
+    /**
+     * Removes a MealPlan from the database.
+     * @param mealPlanID MealPlan that should be removed.
+     * @return Response if suceeded or failed.
+     */
     @GET
     @Produces("application/json")
     @Path("/removeMealFromMealPlan")
@@ -68,6 +72,10 @@ public class MealPlanController {
         return response;
     }
 
+    /**
+     * Creates a grocery-list based on the mealplan of the current week.
+     * @return Response object containing a Map<String, MealAddition>
+     */
     @GET
     @Produces("application/json")
     @Path("/getGroceries")
@@ -99,17 +107,20 @@ public class MealPlanController {
 
         for (MealAddition mealAddition : mealAdditions){
             String ingredientName = mealAddition.getIngredient().getName();
-
-            if (groceries.containsKey(ingredientName)){
-                MealAddition existingAddition = groceries.get(ingredientName);
-                int newValue = existingAddition.getAmount() + mealAddition.getAmount();
-                existingAddition.setAmount(newValue);
-            }
-            else {
-                groceries.put(ingredientName, mealAddition);
-            }
+            addOrUpdateGrocery(groceries, mealAddition, ingredientName);
         }
 
         return groceries;
+    }
+
+    private void addOrUpdateGrocery(Map<String, MealAddition> groceries, MealAddition mealAddition, String ingredientName) {
+        if (!groceries.containsKey(ingredientName)){
+            groceries.put(ingredientName, mealAddition);
+            return;
+        }
+
+        MealAddition existingAddition = groceries.get(ingredientName);
+        int newValue = existingAddition.getAmount() + mealAddition.getAmount();
+        existingAddition.setAmount(newValue);
     }
 }
