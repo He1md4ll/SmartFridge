@@ -1,5 +1,6 @@
 package com.smart.fridge.controller;
 
+import com.google.common.base.Preconditions;
 import com.smart.fridge.domain.MealAddition;
 import com.smart.fridge.domain.MealPlan;
 import com.smart.fridge.domain.enums.Day;
@@ -8,10 +9,7 @@ import com.smart.fridge.services.MealPlanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,6 +27,8 @@ public class MealPlanController {
     @Produces("application/json")
     @Path("/getMealsOfDay")
     public Response getMealsOfDay(@QueryParam(value = "day") Day day) {
+        Preconditions.checkNotNull(day, "Day can not be null!");
+
         Response response;
         List<MealPlan> mealPlanList = mealPlanService.getMealsOfDay(day);
         if (mealPlanList.isEmpty()) {
@@ -39,16 +39,20 @@ public class MealPlanController {
         return response;
     }
 
-    @GET
+    @PUT
     @Produces("application/json")
     @Path("/addMealToMealPlan")
     public Response createMealPlan(@QueryParam("mealID") long mealID, @QueryParam("mealTime") MealTime mealTime, @QueryParam("day") Day day) {
+        Preconditions.checkNotNull(mealID, "MealID can not be null!");
+        Preconditions.checkNotNull(mealTime, "MealTime can not be null!");
+        Preconditions.checkNotNull(day, "Day can not be null!");
+
         Response response;
         MealPlan mealPlan = mealPlanService.createMealPlan(mealID, mealTime, day);
         if (mealPlan == null) {
             response = Response.status(Response.Status.PRECONDITION_FAILED).build();
         } else {
-            response = Response.ok().build();
+            response = Response.ok(mealPlan).build();
         }
         return response;
     }
@@ -58,10 +62,12 @@ public class MealPlanController {
      * @param mealPlanID MealPlan that should be removed.
      * @return Response if suceeded or failed.
      */
-    @GET
+    @DELETE
     @Produces("application/json")
     @Path("/removeMealFromMealPlan")
     public Response removeMealPlan(@QueryParam("mealPlanID") long mealPlanID) {
+        Preconditions.checkNotNull(mealPlanID, "MealPlanID can not be null!");
+
         Response response;
         boolean success = mealPlanService.removeMealPlan(mealPlanID);
         if (!success) {

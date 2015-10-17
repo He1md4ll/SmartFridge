@@ -1,6 +1,7 @@
 package com.smart.fridge.controller;
 
 
+import com.google.common.base.Preconditions;
 import com.smart.fridge.domain.Meal;
 import com.smart.fridge.domain.MealAddition;
 import com.smart.fridge.domain.MealPerformance;
@@ -33,6 +34,8 @@ public class MealController {
     @Path("/getMealByName")
     @Produces("application/json")
     public Response getMealByName(@QueryParam(value = "mealName") String mealName) {
+        Preconditions.checkNotNull(mealName, "MealName can not be null!");
+
         Response response;
         Meal meal = mealService.getMealByName(mealName);
         if (meal == null) {
@@ -61,6 +64,8 @@ public class MealController {
     @Produces("application/json")
     @Path("/getMealAdditionOfMeal")
     public Response getMealAdditionOfMeal(@QueryParam(value = "mealID") int mealID) {
+        Preconditions.checkNotNull(mealID, "MealID can not be null!");
+
         List<MealAddition> mealAdditionList = mealService.getMealAdditionsOfMeal(mealID);
         Response response;
         if (mealAdditionList.isEmpty()) {
