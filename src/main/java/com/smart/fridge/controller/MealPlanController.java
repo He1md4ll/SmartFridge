@@ -23,6 +23,11 @@ public class MealPlanController {
     @Autowired
     private MealPlanService mealPlanService;
 
+    /**
+     * Returns all meals that are planned for the specific day.
+     * @param day Day of the week
+     * @return All meals that are planned for the passed day
+     */
     @GET
     @Produces("application/json")
     @Path("/getMealsOfDay")
@@ -39,6 +44,13 @@ public class MealPlanController {
         return response;
     }
 
+    /**
+     * Adds one meal to the MealPlan.
+     * @param mealID Meal that should be added
+     * @param mealTime Time of day the meal is intended to be consumed
+     * @param day Day of the week the meal is intented to be cnsumed
+     * @return Respone if succeeded or failed
+     */
     @PUT
     @Produces("application/json")
     @Path("/addMealToMealPlan")
