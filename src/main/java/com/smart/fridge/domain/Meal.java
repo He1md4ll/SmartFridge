@@ -1,7 +1,6 @@
 package com.smart.fridge.domain;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "meals")
@@ -14,23 +13,18 @@ public class Meal {
     @Column(name = "name", nullable = false, unique = true)
     private String name;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    private List<MealAddition> mealAdditions;
-
     @Column(name = "url", nullable = true)
     private String url = "http://panow.com/sites/default/files/styles/homepage_grid/public/default_images/image-placeholder_3.jpg";
 
     public Meal() {
     }
 
-    public Meal(String name, List<MealAddition> mealAdditions) {
+    public Meal(String name) {
         this.name = name;
-        this.mealAdditions = mealAdditions;
     }
 
-    public Meal(String name, List<MealAddition> mealAdditions, String url) {
+    public Meal(String name, String url) {
         this.name = name;
-        this.mealAdditions = mealAdditions;
         this.url = url;
     }
 
@@ -48,14 +42,6 @@ public class Meal {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public List<MealAddition> getMealAdditions() {
-        return mealAdditions;
-    }
-
-    public void setMealAdditions(List<MealAddition> mealAdditions) {
-        this.mealAdditions = mealAdditions;
     }
 
     public String getUrl() {

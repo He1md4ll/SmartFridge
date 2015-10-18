@@ -8,28 +8,32 @@ public class MealAddition {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private long meal_addition_id;
 
-    @Column(name = "amount")
+    @Column(name = "amount", nullable = false)
     private int amount;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Ingredient ingredient;
 
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Meal meal;
+
     public MealAddition() {
     }
 
-    public MealAddition(int amount, Ingredient ingredient) {
+    public MealAddition(int amount, Ingredient ingredient, Meal meal) {
         this.amount = amount;
         this.ingredient = ingredient;
+        this.meal = meal;
     }
 
-    public long getId() {
-        return id;
+    public long getMeal_addition_id() {
+        return meal_addition_id;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setMeal_addition_id(long meal_addition_id) {
+        this.meal_addition_id = meal_addition_id;
     }
 
     public int getAmount() {
@@ -46,5 +50,13 @@ public class MealAddition {
 
     public void setIngredient(Ingredient ingredient) {
         this.ingredient = ingredient;
+    }
+
+    public Meal getMeal() {
+        return meal;
+    }
+
+    public void setMeal(Meal meal) {
+        this.meal = meal;
     }
 }

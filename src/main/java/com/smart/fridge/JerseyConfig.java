@@ -1,5 +1,6 @@
 package com.smart.fridge;
 
+import com.smart.fridge.controller.CreateTestDataController;
 import com.smart.fridge.controller.IngredientController;
 import com.smart.fridge.controller.MealController;
 import com.smart.fridge.controller.MealPlanController;
@@ -13,6 +14,7 @@ public class JerseyConfig extends ResourceConfig {
         register(MealController.class);
         register(IngredientController.class);
         register(MealPlanController.class);
+        register(CreateTestDataController.class);
 
         //Register ExcptionMapper
         register(CustomExceptionHandler.class);

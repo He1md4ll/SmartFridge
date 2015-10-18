@@ -6,6 +6,7 @@ import com.smart.fridge.domain.MealPlan;
 import com.smart.fridge.domain.enums.Day;
 import com.smart.fridge.domain.enums.MealTime;
 import com.smart.fridge.services.MealPlanService;
+import com.smart.fridge.services.MealService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -22,6 +23,9 @@ public class MealPlanController {
 
     @Autowired
     private MealPlanService mealPlanService;
+
+    @Autowired
+    private MealService mealService;
 
     @Autowired
     private CustomResponseBuilder customResponseBuilder;
@@ -54,7 +58,7 @@ public class MealPlanController {
      * @param day Day of the week the meal is intented to be cnsumed
      * @return Respone if succeeded or failed
      */
-    @PUT
+    @POST
     @Produces("application/json")
     @Path("/addMealToMealPlan")
     public Response createMealPlan(@QueryParam("mealID") long mealID, @QueryParam("mealTime") MealTime mealTime, @QueryParam("day") Day day) {
@@ -121,9 +125,10 @@ public class MealPlanController {
             mealPlansOfWeak.addAll(mealPlanService.getMealsOfDay(day));
         }
 
+
         List<MealAddition> mealAdditions = new ArrayList<>();
         for (MealPlan mealPlan : mealPlansOfWeak){
-            mealAdditions.addAll(mealPlan.getMeal().getMealAdditions());
+            mealAdditions.addAll(mealService.getMealAdditionsOfMeal(mealPlan.getMeal().getId()));
         }
 
         for (MealAddition mealAddition : mealAdditions){

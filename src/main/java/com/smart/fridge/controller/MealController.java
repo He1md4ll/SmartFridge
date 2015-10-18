@@ -4,7 +4,6 @@ package com.smart.fridge.controller;
 import com.google.common.base.Preconditions;
 import com.smart.fridge.domain.Meal;
 import com.smart.fridge.domain.MealAddition;
-import com.smart.fridge.domain.MealPerformance;
 import com.smart.fridge.services.MealService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -70,7 +69,7 @@ public class MealController {
     @Produces("application/json")
     public Response getMeals() {
         Response response;
-        List<MealPerformance> mealList = mealService.getMeals();
+        List<Meal> mealList = mealService.getMeals();
         if (mealList.isEmpty()) {
             response = Response.noContent().build();
         } else {

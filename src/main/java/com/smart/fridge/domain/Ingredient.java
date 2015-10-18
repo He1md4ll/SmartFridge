@@ -5,7 +5,7 @@ import com.smart.fridge.domain.enums.Unit;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "ingredients")
+@Table(name = "ingredient")
 public class Ingredient {
 
     @Id
