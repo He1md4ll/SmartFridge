@@ -31,7 +31,7 @@ public class MealService {
 
     @Transactional
     public String createMeal() {
-        Ingredient ingredient = new Ingredient("TestIngredient", Unit.KG);
+        Ingredient ingredient = new Ingredient("TestIngredient", Unit.KG, "http://www.boettgergruppe.com/fileadmin/boettgergruppe/img/zucker.jpg");
         ingredientRepository.save(ingredient);
 
         MealAddition mealAddition = new MealAddition(1, ingredient);
@@ -39,7 +39,7 @@ public class MealService {
 
         List<MealAddition> mealAdditionList = new ArrayList<>();
         mealAdditionList.add(mealAddition);
-        Meal meal = new Meal("TestMeal", mealAdditionList);
+        Meal meal = new Meal("TestMeal", mealAdditionList, "http://3yis471nsv3u3cfv9924fumi.wpengine.netdna-cdn.com/wp-content/uploads/2013/11/Half-a-BBQ-Chicken-Meal-Deal.jpg");
         mealRepository.save(meal);
         return "Success!";
     }

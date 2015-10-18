@@ -4,11 +4,13 @@ public class MealPerformance {
 
     private long id;
     private String name;
+    private String url;
 
     public static MealPerformance fromMeal(Meal meal) {
         MealPerformance mealPerformance = new MealPerformance();
         mealPerformance.setId(meal.getId());
         mealPerformance.setName(meal.getName());
+        mealPerformance.setUrl(meal.getUrl());
         return mealPerformance;
     }
 
@@ -26,5 +28,13 @@ public class MealPerformance {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }
