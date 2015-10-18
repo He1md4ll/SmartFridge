@@ -23,6 +23,9 @@ public class MealController {
     @Autowired
     private MealService mealService;
 
+    @Autowired
+    private CustomResponseBuilder customResponseBuilder;
+
     @GET
     @Path("/createMeal")
     @Produces("application/json")
@@ -43,7 +46,7 @@ public class MealController {
         } else {
             response = Response.ok(meal).build();
         }
-        return response;
+        return customResponseBuilder.buildCustomResponse(response);
     }
 
     @GET
@@ -59,7 +62,7 @@ public class MealController {
         } else {
             response = Response.ok(mealList).build();
         }
-        return response;
+        return customResponseBuilder.buildCustomResponse(response);
     }
 
     @GET
@@ -73,7 +76,7 @@ public class MealController {
         } else {
             response = Response.ok(mealList).build();
         }
-        return response;
+        return customResponseBuilder.buildCustomResponse(response);
     }
 
     @GET
@@ -89,6 +92,6 @@ public class MealController {
         } else {
             response = Response.ok(mealAdditionList).build();
         }
-        return response;
+        return customResponseBuilder.buildCustomResponse(response);
     }
 }

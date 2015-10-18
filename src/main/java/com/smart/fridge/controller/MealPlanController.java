@@ -23,6 +23,9 @@ public class MealPlanController {
     @Autowired
     private MealPlanService mealPlanService;
 
+    @Autowired
+    private CustomResponseBuilder customResponseBuilder;
+
     /**
      * Returns all meals that are planned for the specific day.
      * @param day Day of the week
@@ -41,7 +44,7 @@ public class MealPlanController {
         } else {
             response = Response.ok().entity(mealPlanList).build();
         }
-        return response;
+        return customResponseBuilder.buildCustomResponse(response);
     }
 
     /**
@@ -66,7 +69,7 @@ public class MealPlanController {
         } else {
             response = Response.ok(mealPlan).build();
         }
-        return response;
+        return customResponseBuilder.buildCustomResponse(response);
     }
 
     /**
@@ -87,7 +90,7 @@ public class MealPlanController {
         } else {
             response = Response.ok().build();
         }
-        return response;
+        return customResponseBuilder.buildCustomResponse(response);
     }
 
     /**
@@ -107,7 +110,7 @@ public class MealPlanController {
             response = Response.ok().entity(groceries).build();
         }
 
-        return response;
+        return customResponseBuilder.buildCustomResponse(response);
     }
 
     private List<MealAddition> _generateGroceries(){

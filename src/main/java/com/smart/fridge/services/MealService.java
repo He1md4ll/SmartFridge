@@ -5,6 +5,7 @@ import com.smart.fridge.domain.Ingredient;
 import com.smart.fridge.domain.Meal;
 import com.smart.fridge.domain.MealAddition;
 import com.smart.fridge.domain.MealPerformance;
+import com.smart.fridge.domain.enums.Unit;
 import com.smart.fridge.repos.IngredientRepository;
 import com.smart.fridge.repos.MealAdditionRepository;
 import com.smart.fridge.repos.MealRepository;
@@ -30,13 +31,13 @@ public class MealService {
 
     @Transactional
     public String createMeal() {
-        Ingredient ingredient = new Ingredient("TestIngredient");
+        Ingredient ingredient = new Ingredient("TestIngredient", Unit.KG);
         ingredientRepository.save(ingredient);
 
         MealAddition mealAddition = new MealAddition(1, ingredient);
         mealAdditionRepository.save(mealAddition);
 
-        List<MealAddition> mealAdditionList = new ArrayList<MealAddition>();
+        List<MealAddition> mealAdditionList = new ArrayList<>();
         mealAdditionList.add(mealAddition);
         Meal meal = new Meal("TestMeal", mealAdditionList);
         mealRepository.save(meal);
