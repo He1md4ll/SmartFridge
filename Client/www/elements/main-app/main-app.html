@@ -1,0 +1,65 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="main-app">
+
+    <template>
+
+        <style>
+
+            paper-toolbar {
+                background: #607D8B;
+            }
+
+        </style>
+
+        <paper-drawer-panel force-narrow id="drawer">
+
+            <paper-header-panel main>
+                <paper-toolbar>
+                    <paper-icon-button icon="{{menuIcon(selectedMeal)}}" style="margin-right: 8px"
+                                       on-click="menuButtonClicked"></paper-icon-button>
+                    <div class="title flex">{{title}}</div>
+                    <template is="dom-if" if="{{selectedMeal}}">
+                        <paper-icon-button icon="add" style="margin-left: 8px"
+                                           on-click="addMeal"></paper-icon-button>
+                    </template>
+                </paper-toolbar>
+
+                <div class="content">
+
+                    <iron-pages selected="{{selectedPage}}">
+                        <meal-list id="mealList" on-meal-selected="_mealSelected"
+                                   on-meal-added="_mealAdded"></meal-list>
+                        <grocery-list id="groceryList"></grocery-list>
+                        <meal-detail id="mealDetail"></meal-detail>
+                    </iron-pages>
+
+                    <add-meal-dialog id="addDialog"></add-meal-dialog>
+
+                </div>
+
+            </paper-header-panel>
+
+            <paper-header-panel drawer>
+                <paper-toolbar>
+                    <div class="title">Menu</div>
+                </paper-toolbar>
+
+                <div class="content">
+                    <paper-menu selected="{{selectedPage}}">
+                        <paper-item>Meals</paper-item>
+                        <paper-item>Grocery Bag</paper-item>
+                    </paper-menu>
+                </div>
+
+            </paper-header-panel>
+
+
+        </paper-drawer-panel>
+
+
+    </template>
+
+    <script src="main-app.js"></script>
+
+</dom-module>

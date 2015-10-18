@@ -1,0 +1,45 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="grocery-list">
+
+    <template>
+
+        <style>
+
+            paper-card {
+
+            --paper-card-header-image: {
+                 height: 200px
+             }
+
+            }
+
+            .list {
+                margin: 8px;
+            }
+
+
+        </style>
+
+        <iron-ajax id="groceryRequest" url="http://10.81.21.57:8080/rest/getGroceries" method="GET"
+                   on-response="_handleGroceriesResponse"></iron-ajax>
+
+        <div class="vertical layout list">
+
+            <template is="dom-repeat" items="{{groceries}}">
+
+                <paper-card heading="{{item.ingredient.name}}" image="{{item.ingredient.url}}" style="margin-bottom: 8px">
+                    <div class="card-content">
+                        <div><span>{{item.amount}}</span> <span>{{item.ingredient.unit}}</span></div>
+                    </div>
+                </paper-card>
+
+            </template>
+
+        </div>
+
+    </template>
+
+    <script src="grocery-list.js"></script>
+
+</dom-module>

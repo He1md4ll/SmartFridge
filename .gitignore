@@ -1,3 +1,5 @@
 *.iml
-/.idea
+.idea
 /.mvn
+node_modules
+bower_components

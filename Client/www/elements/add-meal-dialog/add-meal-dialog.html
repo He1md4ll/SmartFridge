@@ -1,0 +1,54 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="add-meal-dialog">
+
+    <template>
+
+        <style>
+
+        </style>
+
+        <iron-ajax id="mealRequest" url="http://10.81.21.57:8080/rest/addMealToMealPlan" method="POST"
+                   on-response="_handleMealResponse"></iron-ajax>
+
+        <paper-dialog id="dialog" modal no-cancel-on-escape>
+
+            <h2>Add Meal</h2>
+
+            <div class="vertical layout">
+
+                <div>Please add a meal.</div>
+
+                <paper-dropdown-menu label="Day">
+                    <paper-menu class="dropdown-content" id="days">
+                        <paper-item>Monday</paper-item>
+                        <paper-item>Tuesday</paper-item>
+                        <paper-item>Wednesday</paper-item>
+                        <paper-item>Thursday</paper-item>
+                        <paper-item>Friday</paper-item>
+                        <paper-item>Saturday</paper-item>
+                        <paper-item>Sunday</paper-item>
+                    </paper-menu>
+                </paper-dropdown-menu>
+
+                <paper-radio-group id="time">
+                    <paper-radio-button name="BREAKFAST">Breakfast</paper-radio-button>
+                    <paper-radio-button name="LUNCH">Lunch</paper-radio-button>
+                    <paper-radio-button name="DINNER">Dinner</paper-radio-button>
+                    <paper-radio-button name="SNACK">Snack</paper-radio-button>
+                </paper-radio-group>
+
+            </div>
+
+            <div class="buttons">
+                <paper-button dialog-dismiss>Cancel</paper-button>
+                <paper-button dialog-confirm on-click="addMeal">Add</paper-button>
+            </div>
+
+        </paper-dialog>
+
+    </template>
+
+    <script src="add-meal-dialog.js"></script>
+
+</dom-module>

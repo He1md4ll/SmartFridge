@@ -1,0 +1,24 @@
+{
+  "name": "smartfridge",
+  "authors": [
+    "Tim Okolowski <tim@okolowski.com>"
+  ],
+  "description": "",
+  "main": "www/index.html",
+  "moduleType": [],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#1.1.0",
+    "iron-elements": "PolymerElements/iron-elements#~1.0.4",
+    "paper-elements": "PolymerElements/paper-elements#~1.0.5",
+    "firebase-element": "GoogleWebComponents/firebase-element#~1.0.7"
+  }
+}
