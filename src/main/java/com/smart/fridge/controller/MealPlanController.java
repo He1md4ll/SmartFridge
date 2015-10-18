@@ -92,14 +92,14 @@ public class MealPlanController {
 
     /**
      * Creates a grocery-list based on the mealplan of the current week.
-     * @return Response object containing a Map<String, MealAddition>
+     * @return Response object containing a List<MealAddition>
      */
     @GET
     @Produces("application/json")
     @Path("/getGroceries")
     public Response getGroceries(){
         Response response;
-        Map<String, MealAddition> groceries = _generateGroceries();
+        List<MealAddition> groceries = _generateGroceries();
 
         if (groceries.isEmpty()) {
             response = Response.noContent().build();
@@ -110,7 +110,7 @@ public class MealPlanController {
         return response;
     }
 
-    private Map<String, MealAddition> _generateGroceries(){
+    private List<MealAddition> _generateGroceries(){
         Map<String, MealAddition> groceries = new HashMap<>();
 
         List<MealPlan> mealPlansOfWeak = new ArrayList<>();
@@ -128,7 +128,7 @@ public class MealPlanController {
             addOrUpdateGrocery(groceries, mealAddition, ingredientName);
         }
 
-        return groceries;
+        return new ArrayList<>(groceries.values());
     }
 
     private void addOrUpdateGrocery(Map<String, MealAddition> groceries, MealAddition mealAddition, String ingredientName) {
